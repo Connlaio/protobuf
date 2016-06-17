@@ -1,0 +1,38 @@
+
+从源代码编译ProtoBuf
+1.编译环境配置：
+	windows 平台： 安装MinGW
+		依赖库： 
+		autoconf
+		automake
+		libtool
+		curl
+		make
+		g++
+		unzip
+
+2.下载源代码
+	git clone https://github.com/google/protobuf.git
+	直接将源码clone到MinGW-install-path\MinGW\msys\1.0\home\admin下
+3.修改源代码
+	因为gmock源代码(google code）无法获取(若git设置了代理，此步骤可忽略），所以要修改autogen.sh脚本
+	curl $curlopts -O https://googlemock.googlecode.com/files/gmock-1.7.0.zip
+	修改为
+ 	curl $curlopts  -L -o gmock-1.7.0.zip https://github.com/peter-wangxu/gmock/archive/1.7.0.zip
+ 4.编译
+  	•产生configure文件
+
+	$ ./autogen
+	•编译与安装protobuf
+
+	$ ./configure
+	$ make
+	$ make check
+	$ make install
+	$ ldconfig # refresh shared library cache.
+
+	NOTE: 默认是安装在“/usr/local/lib”下的，在有些平台/usr/local/lib不是默认的LD_LIBRARY_PATH变量里面，可以在通过如下命令改变安装目录
+
+	$ ./configure --prefix=/usr
+---------------------------------------------------------------------------
+	Done
